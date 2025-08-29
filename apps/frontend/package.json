@@ -1,0 +1,34 @@
+{
+  "name": "@extodo/frontend",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "lint": "eslint . --fix",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@extodo/shared": "workspace:*",
+    "@types/qs": "catalog:",
+    "@vueuse/core": "^13.8.0",
+    "clsx": "^2.1.1",
+    "consola": "catalog:",
+    "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "^4.5.0",
+    "qs": "catalog:",
+    "vue": "^3.5.18",
+    "vue-draggable-plus": "^0.6.0",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@unocss/eslint-plugin": "^66.4.2",
+    "@unocss/preset-wind4": "^66.4.2",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/tsconfig": "^0.7.0",
+    "unocss": "^66.4.2",
+    "vite": "^7.1.2",
+    "vue-tsc": "^3.0.5"
+  }
+}

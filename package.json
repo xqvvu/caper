@@ -1,0 +1,30 @@
+{
+  "name": "extodo",
+  "private": true,
+  "packageManager": "bun@1.2.21",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^5.2.1",
+    "eslint": "^9.34.0",
+    "turbo": "^2.5.6",
+    "typescript": "5.9.2"
+  },
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "@types/bun": "latest",
+      "@types/qs": "^6.14.0",
+      "consola": "^3.4.2",
+      "qs": "^6.14.0",
+      "typescript": "^5"
+    },
+    "catalogs": {}
+  }
+}

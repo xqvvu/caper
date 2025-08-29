@@ -1,0 +1,20 @@
+name: extodo
+
+services:
+  mongo:
+    image: mongo:8.0.13-noble
+    container_name: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - server
+    volumes:
+      - ~/.container/extodo/mongo/data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=extodo
+      - MONGO_INITDB_ROOT_USERNAME=username
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+networks:
+  server:
+    driver: bridge
