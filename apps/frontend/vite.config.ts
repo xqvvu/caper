@@ -1,6 +1,7 @@
 import path from "node:path";
+import ui from "@nuxt/ui/vite";
+import tailwindcss from "@tailwindcss/vite";
 import vue from "@vitejs/plugin-vue";
-import UnoCSS from "unocss/vite";
 import { defineConfig, loadEnv } from "vite";
 
 // https://vite.dev/config/
@@ -16,9 +17,8 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
-      UnoCSS({
-        mode: "global",
-      }),
+      tailwindcss(),
+      ui(),
     ],
 
     resolve: {

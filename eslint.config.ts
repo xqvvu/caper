@@ -1,9 +1,3 @@
-import antfu from "@antfu/eslint-config";
+import { eslint } from "@caper/shared/configs";
 
-export default antfu({
-  stylistic: {
-    jsx: false,
-    semi: true,
-    quotes: "double",
-  },
-});
+export default eslint;

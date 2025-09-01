@@ -19,7 +19,14 @@
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true,
     "skipLibCheck": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "paths": {
+      // Nuxt UI
+      "#build/ui": [
+        "../../node_modules/@nuxt/ui/.nuxt/ui"
+      ]
+    }
   },
   "include": ["vite.config.ts"]
 }

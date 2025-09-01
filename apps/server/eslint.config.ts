@@ -1,14 +1,3 @@
-import antfu from "@antfu/eslint-config";
+import { base } from "@caper/shared/configs";
 
-export default antfu({
-  stylistic: {
-    jsx: false,
-    semi: true,
-    quotes: "double",
-  },
-  ignores: ["tsconfig.json"],
-  rules: {
-    "antfu/curly": "off",
-    "antfu/if-newline": "off",
-  },
-});
+export default base;

@@ -1,10 +1,3 @@
-import antfu from "@antfu/eslint-config";
+import { eslint } from "./configs/eslint";
 
-export default antfu({
-  stylistic: {
-    jsx: false,
-    semi: true,
-    quotes: "double",
-  },
-  ignores: ["tsconfig.json"],
-});
+export default eslint;

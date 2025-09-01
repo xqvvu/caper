@@ -1,5 +1,5 @@
 {
-  "name": "@extodo/frontend",
+  "name": "@caper/frontend",
   "type": "module",
   "version": "0.0.0",
   "private": true,
@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@extodo/shared": "workspace:*",
+    "@caper/shared": "workspace:*",
+    "@nuxt/ui": "^3.3.2",
+    "@tailwindcss/vite": "^4.1.12",
     "@types/qs": "catalog:",
     "@vueuse/core": "^13.8.0",
     "clsx": "^2.1.1",
@@ -18,16 +20,14 @@
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.5.0",
     "qs": "catalog:",
+    "tailwindcss": "^4.1.12",
     "vue": "^3.5.18",
     "vue-draggable-plus": "^0.6.0",
     "vue-router": "4"
   },
   "devDependencies": {
-    "@unocss/eslint-plugin": "^66.4.2",
-    "@unocss/preset-wind4": "^66.4.2",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.7.0",
-    "unocss": "^66.4.2",
     "vite": "^7.1.2",
     "vue-tsc": "^3.0.5"
   }

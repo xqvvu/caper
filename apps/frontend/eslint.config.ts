@@ -1,15 +1,13 @@
 import antfu from "@antfu/eslint-config";
+import { eslint } from "@caper/shared/configs";
 
-export default antfu({
-  stylistic: {
-    jsx: false,
-    semi: true,
-    quotes: "double",
+export default antfu(
+  {
+    vue: true,
+    rules: {
+      "vue/multiline-html-element-content-newline": "off",
+      "vue/max-attributes-per-line": ["error", { singleline: 3, multiline: 1 }],
+    },
   },
-  vue: true,
-  unocss: true,
-  rules: {
-    // "vue/max-attributes-per-line": ["error", { singleline: 3, multiline: 1 }],
-  },
-  ignores: ["tsconfig.app.json", "tsconfig.json", "tsconfig.node.json"],
-});
+  eslint,
+);

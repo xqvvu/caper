@@ -5,7 +5,7 @@ down:
 	docker compose -f=./apps/server/compose.local.yml down
 
 clean:
-	rm -rf ~/.container/extodo
+	rm -rf ~/.container/caper
 
 dev:
 	bun run dev
