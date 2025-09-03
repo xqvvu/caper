@@ -1,3 +1,3 @@
-import { base } from "@caper/shared/configs";
+import { eslint } from "@caper/shared/configs";
 
-export default base;
+export default eslint;

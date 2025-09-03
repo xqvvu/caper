@@ -13,6 +13,7 @@
     "@caper/shared": "workspace:*",
     "@nuxt/ui": "^3.3.2",
     "@tailwindcss/vite": "^4.1.12",
+    "@ts-rest/core": "catalog:",
     "@types/qs": "catalog:",
     "@vueuse/core": "^13.8.0",
     "clsx": "^2.1.1",

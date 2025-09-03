@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { uuidv7 } from "@caper/shared";
-import consola from "consola";
+import { useCompletions } from "@/composables/use-completions";
 
-consola.success(uuidv7());
+const { answer, completion } = useCompletions();
 </script>
 
 <template>
@@ -10,10 +9,15 @@ consola.success(uuidv7());
     <UButton
       class="text-emerald-600 cursor-pointer"
       color="neutral"
+      @click="completion()"
     >
       HOME
     </UButton>
 
     <ExInput />
+
+    <div class="text-white font-semibold text-lg">
+      {{ answer }}
+    </div>
   </div>
 </template>

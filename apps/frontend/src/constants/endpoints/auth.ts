@@ -3,4 +3,5 @@ export const authEndpoints = {
   "log-out": "/auth/log-out",
   "refresh": "/auth/refresh",
 } as const;
+
 export default authEndpoints;
