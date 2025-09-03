@@ -1,4 +1,4 @@
-import { uuidv7 } from "@caper/shared";
+import { uuidv7 } from "@jigu/shared";
 import consola from "consola";
 import { Hono } from "hono";
 import { R } from "@/shared/utils";

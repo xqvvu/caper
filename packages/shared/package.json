@@ -1,5 +1,5 @@
 {
-  "name": "@caper/shared",
+  "name": "@jigu/shared",
   "type": "module",
   "private": true,
   "exports": {

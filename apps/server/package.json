@@ -1,5 +1,5 @@
 {
-  "name": "@caper/server",
+  "name": "@jigu/server",
   "type": "module",
   "private": true,
   "module": "index.ts",
@@ -12,7 +12,7 @@
     "typescript": "catalog:"
   },
   "dependencies": {
-    "@caper/shared": "workspace:*",
+    "@jigu/shared": "workspace:*",
     "@ts-rest/core": "catalog:",
     "@types/qs": "catalog:",
     "consola": "catalog:",

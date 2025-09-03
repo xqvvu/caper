@@ -5,17 +5,17 @@
       "name": "extodo",
       "devDependencies": {
         "@antfu/eslint-config": "^5.2.1",
-        "@caper/shared": "workspace:*",
+        "@jigu/shared": "workspace:*",
         "eslint": "^9.34.0",
         "turbo": "^2.5.6",
         "typescript": "5.9.2",
       },
     },
     "apps/frontend": {
-      "name": "@caper/frontend",
+      "name": "@jigu/frontend",
       "version": "0.0.0",
       "dependencies": {
-        "@caper/shared": "workspace:*",
+        "@jigu/shared": "workspace:*",
         "@nuxt/ui": "^3.3.2",
         "@tailwindcss/vite": "^4.1.12",
         "@ts-rest/core": "catalog:",
@@ -39,9 +39,9 @@
       },
     },
     "apps/server": {
-      "name": "@caper/server",
+      "name": "@jigu/server",
       "dependencies": {
-        "@caper/shared": "workspace:*",
+        "@jigu/shared": "workspace:*",
         "@ts-rest/core": "catalog:",
         "@types/qs": "catalog:",
         "consola": "catalog:",
@@ -57,7 +57,7 @@
       },
     },
     "packages/shared": {
-      "name": "@caper/shared",
+      "name": "@jigu/shared",
       "dependencies": {
         "@ts-rest/core": "catalog:",
         "consola": "catalog:",
@@ -97,12 +97,6 @@
     "@babel/parser": ["@babel/parser@7.28.3", "https://registry.npmmirror.com/@babel/parser/-/parser-7.28.3.tgz", { "dependencies": { "@babel/types": "^7.28.2" }, "bin": "./bin/babel-parser.js" }, "sha512-7+Ey1mAgYqFAx2h0RuoxcQT5+MlG3GTV0TQrgr7/ZliKsm/MNDxVVutlWaziMq7wJNAz8MTqz55XLpWvva6StA=="],
 
     "@babel/types": ["@babel/types@7.28.2", "https://registry.npmmirror.com/@babel/types/-/types-7.28.2.tgz", { "dependencies": { "@babel/helper-string-parser": "^7.27.1", "@babel/helper-validator-identifier": "^7.27.1" } }, "sha512-ruv7Ae4J5dUYULmeXw1gmb7rYRz57OWCPM57pHojnLq/3Z1CK2lNSLTCVjxVk1F/TZHwOZZrOWi0ur95BbLxNQ=="],
-
-    "@caper/frontend": ["@caper/frontend@workspace:apps/frontend"],
-
-    "@caper/server": ["@caper/server@workspace:apps/server"],
-
-    "@caper/shared": ["@caper/shared@workspace:packages/shared"],
 
     "@capsizecss/metrics": ["@capsizecss/metrics@3.5.0", "", {}, "sha512-Ju2I/Qn3c1OaU8FgeW4Tc22D4C9NwyVfKzNmzst59bvxBjPoLYNZMqFYn+HvCtn4MpXwiaDtCE8fNuQLpdi9yA=="],
 
@@ -219,6 +213,12 @@
     "@internationalized/number": ["@internationalized/number@3.6.5", "", { "dependencies": { "@swc/helpers": "^0.5.0" } }, "sha512-6hY4Kl4HPBvtfS62asS/R22JzNNy8vi/Ssev7x6EobfCp+9QIB2hKvI2EtbdJ0VSQacxVNtqhE/NmF/NZ0gm6g=="],
 
     "@isaacs/fs-minipass": ["@isaacs/fs-minipass@4.0.1", "", { "dependencies": { "minipass": "^7.0.4" } }, "sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w=="],
+
+    "@jigu/frontend": ["@jigu/frontend@workspace:apps/frontend"],
+
+    "@jigu/server": ["@jigu/server@workspace:apps/server"],
+
+    "@jigu/shared": ["@jigu/shared@workspace:packages/shared"],
 
     "@jridgewell/gen-mapping": ["@jridgewell/gen-mapping@0.3.13", "https://registry.npmmirror.com/@jridgewell/gen-mapping/-/gen-mapping-0.3.13.tgz", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA=="],
 

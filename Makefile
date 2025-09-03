@@ -5,7 +5,7 @@ down:
 	docker compose -f=./apps/server/compose.local.yml down
 
 clean:
-	rm -rf ~/.container/caper
+	rm -rf ~/.container/jigu
 
 dev:
 	bun run dev

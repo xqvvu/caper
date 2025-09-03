@@ -1,5 +1,5 @@
 {
-  "name": "@caper/frontend",
+  "name": "@jigu/frontend",
   "type": "module",
   "version": "0.0.0",
   "private": true,
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@caper/shared": "workspace:*",
+    "@jigu/shared": "workspace:*",
     "@nuxt/ui": "^3.3.2",
     "@tailwindcss/vite": "^4.1.12",
     "@ts-rest/core": "catalog:",

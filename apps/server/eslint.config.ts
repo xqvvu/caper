@@ -1,3 +1,3 @@
-import { eslint } from "@caper/shared/configs";
+import { eslint } from "@jigu/shared/configs";
 
 export default eslint;

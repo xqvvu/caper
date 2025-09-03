@@ -1,4 +1,4 @@
-import type { Result } from "@caper/shared/@types";
+import type { Result } from "@jigu/shared/@types";
 import type { Context } from "hono";
 
 export class R {

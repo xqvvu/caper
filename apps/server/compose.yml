@@ -1,4 +1,4 @@
-name: caper
+name: jigu
 
 services:
   mongo:
@@ -9,10 +9,11 @@ services:
     networks:
       - server
     volumes:
-      - ~/.container/caper/mongo/data:/data/db
+      - ~/.container/jigu/mongo/data:/data/db
     environment:
-      - MONGO_INITDB_DATABASE=caper
-      - MONGO_INITDB_ROOT_USERNAME=username
+      - TZ=Asia/Shanghai
+      - MONGO_INITDB_DATABASE=jigu
+      - MONGO_INITDB_ROOT_USERNAME=jigu
       - MONGO_INITDB_ROOT_PASSWORD=password
 
 networks:
