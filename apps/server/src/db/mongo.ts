@@ -3,7 +3,7 @@ import type { CollectionName } from "@/shared/collection-names";
 import consola from "consola";
 import { MongoClient } from "mongodb";
 import { MONGO_COLLECTION_NAMES } from "@/shared/collection-names";
-import { gracefulShutdownService } from "@/shared/shutdown";
+import { gracefulShutdown } from "@/shared/shutdown";
 
 let mongoClient: MongoClient | null = null;
 
@@ -18,7 +18,7 @@ export async function initializeMongoClient() {
     consola.success("已连接到 MongoDB");
 
     // 注册关闭清理函数到优雅退出服务
-    gracefulShutdownService.registerCleanup(closeMongoClient, "MongoDB 连接");
+    gracefulShutdown.registerCleanup(closeMongoClient, "MongoDB 连接");
 
     return mongoClient;
   }

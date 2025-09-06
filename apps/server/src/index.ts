@@ -6,7 +6,7 @@ import { initializeMongoClient } from "@/db/mongo";
 import { devLogger } from "@/middleware";
 import logs from "@/routes/logs";
 import v1 from "@/routes/v1";
-import { gracefulShutdownService } from "@/shared/shutdown";
+import { gracefulShutdown } from "@/shared/shutdown";
 
 const app = new Hono();
 
@@ -26,7 +26,7 @@ async function startServer() {
     });
 
     // 注册服务器关闭到优雅退出服务
-    gracefulShutdownService.registerCleanup(async () => {
+    gracefulShutdown.registerCleanup(async () => {
       consola.info("关闭 HTTP 服务器...");
       server.stop();
     }, "HTTP服务器");

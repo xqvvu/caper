@@ -9,7 +9,7 @@ type CleanupFunction = () => Promise<void> | void;
 /**
  * 优雅退出服务
  */
-class GracefulShutdownService {
+class GracefulShutdown {
   private cleanupFunctions: CleanupFunction[] = [];
   private isShuttingDown = false;
   private shutdownTimeout = 30000; // 30秒超时
@@ -148,8 +148,8 @@ class GracefulShutdownService {
 }
 
 // 导出单例实例
-export const gracefulShutdownService = new GracefulShutdownService();
+export const gracefulShutdown = new GracefulShutdown();
 
 // 导出类型和默认实例
 export type { CleanupFunction };
-export { GracefulShutdownService };
+export { GracefulShutdown };

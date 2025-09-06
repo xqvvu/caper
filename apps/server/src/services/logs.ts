@@ -6,7 +6,7 @@ import { cwd } from "node:process";
 import { LOG_LEVELS, LOG_TYPES, uuidv7 } from "@jigu/shared";
 import consola from "consola";
 import { getCollection } from "@/db/mongo";
-import { gracefulShutdownService } from "@/shared/shutdown";
+import { gracefulShutdown } from "@/shared/shutdown";
 
 /**
  * 日志服务配置
@@ -78,7 +78,7 @@ export class LogService {
     }
 
     // 注册清理函数到优雅退出服务
-    gracefulShutdownService.registerCleanup(() => this.stop(), "日志服务");
+    gracefulShutdown.registerCleanup(() => this.stop(), "日志服务");
   }
 
   /**
