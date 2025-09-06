@@ -1,6 +1,6 @@
+import type { Result } from "@jigu/shared/@types";
+import { ServiceCode } from "@jigu/shared/@types";
 import { createFetch } from "@vueuse/core";
-import { DOMAIN } from "@/constants/common";
-import { useAuthStore } from "@/stores";
 
 const AUTH_WHITE_LIST: string[] = [
   "/auth/sign-in",
@@ -12,7 +12,7 @@ export const useFetch = createFetch({
   options: {
     async beforeFetch(ctx) {
       const authStore = useAuthStore();
-      const url = new URL(ctx.url, DOMAIN);
+      const url = new URL(ctx.url, window.location.origin);
 
       if (!AUTH_WHITE_LIST.includes(url.pathname)) {
         ctx.options.headers = {
@@ -25,6 +25,24 @@ export const useFetch = createFetch({
     },
 
     async afterFetch(ctx) {
+      if (!ctx.response.ok) {
+        throw ctx.response.status;
+      }
+
+      const res = ctx.data as Result;
+      if (res.code !== ServiceCode.OK) {
+        throw res.code;
+      }
+
+      ctx.data = res.data;
+      return ctx;
+    },
+
+    async onFetchError(ctx) {
+      if (typeof ctx.error === "number") {
+        consola.error(ctx.error);
+      }
+
       return ctx;
     },
   },

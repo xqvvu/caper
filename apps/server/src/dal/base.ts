@@ -1,7 +1,8 @@
-import type { Document, Collection, ObjectId, Filter, UpdateFilter } from "mongodb";
+import type { Collection, Filter, UpdateFilter, WithId } from "mongodb";
+import type { BaseDocument } from "@/dal/types";
+import type { CollectionName } from "@/shared/collection-names";
+import { ObjectId } from "mongodb";
 import { getCollection } from "@/db/mongo";
-import type { CollectionName } from "@/constants/collections";
-import type { BaseDocument } from "./types";
 
 export abstract class BaseDAL<T extends BaseDocument> {
   protected abstract collectionName: CollectionName;
@@ -10,15 +11,15 @@ export abstract class BaseDAL<T extends BaseDocument> {
     return getCollection<T>(this.collectionName);
   }
 
-  async findAll(filter: Filter<T> = {}): Promise<T[]> {
+  async findAll(filter: Filter<T> = {}): Promise<WithId<T>[]> {
     return this.getCollection().find(filter).toArray();
   }
 
-  async findById(id: string | ObjectId): Promise<T | null> {
+  async findById(id: string | ObjectId): Promise<WithId<T> | null> {
     return this.getCollection().findOne({ _id: new ObjectId(id) } as Filter<T>);
   }
 
-  async findOne(filter: Filter<T>): Promise<T | null> {
+  async findOne(filter: Filter<T>): Promise<WithId<T> | null> {
     return this.getCollection().findOne(filter);
   }
 
@@ -31,12 +32,15 @@ export abstract class BaseDAL<T extends BaseDocument> {
     } as Omit<T, "_id">;
 
     const result = await this.getCollection().insertOne(docWithTimestamps as any);
+    if (!result.insertedId) {
+      throw new Error("Failed to create document");
+    }
     return result.insertedId;
   }
 
   async updateById(
     id: string | ObjectId,
-    updates: Partial<Omit<T, "_id" | "createdAt">>
+    updates: Partial<Omit<T, "_id" | "createdAt">>,
   ): Promise<boolean> {
     const result = await this.getCollection().updateOne(
       { _id: new ObjectId(id) } as Filter<T>,
@@ -45,7 +49,7 @@ export abstract class BaseDAL<T extends BaseDocument> {
           ...updates,
           updatedAt: new Date(),
         },
-      } as UpdateFilter<T>
+      } as UpdateFilter<T>,
     );
     return result.modifiedCount > 0;
   }

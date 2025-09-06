@@ -1,8 +1,10 @@
 import { Hono } from "hono";
-import completions from "@/routes/v1/completions";
+import generates from "@/routes/v1/generates";
+import scripts from "@/routes/v1/scripts";
 
-const v1 = new Hono().basePath("/v1");
+const v1 = new Hono();
 
-v1.route("/", completions);
+v1.route("/generates", generates);
+v1.route("/scripts", scripts);
 
 export default v1;

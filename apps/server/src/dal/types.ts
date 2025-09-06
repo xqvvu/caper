@@ -1,15 +1,10 @@
+import type { ScriptDocument as SharedScriptDocument } from "@jigu/shared/schemas";
 import type { Document, ObjectId } from "mongodb";
 
 export interface BaseDocument extends Document {
-  _id?: ObjectId;
-  createdAt?: Date;
-  updatedAt?: Date;
+  _id: ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export interface ScriptDocument extends BaseDocument {
-  name: string;
-  content: string;
-  language: string;
-  tags?: string[];
-  description?: string;
-}
+export interface ScriptDocument extends Omit<SharedScriptDocument, "_id" | "createdAt" | "updatedAt">, BaseDocument {}

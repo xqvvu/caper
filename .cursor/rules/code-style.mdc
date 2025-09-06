@@ -1,0 +1,9 @@
+---
+alwaysApply: true
+---
+
+## Code Style
+
+- I'd lie to use kabeb-case to naming files
+- Do not use TypeScript's enum, instead of zod.enum, and export enum not options
+- Must set 'node:' prefix while using node standard library

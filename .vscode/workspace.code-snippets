@@ -1,0 +1,10 @@
+{
+  "consola": {
+    "scope": "javascript,typescript,vue",
+    "prefix": "cl",
+    "body": [
+      "consola.info($1);"
+    ],
+    "description": "consola log"
+  }
+}

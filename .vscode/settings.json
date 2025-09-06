@@ -46,5 +46,12 @@
   ],
   "typescript.format.enable": false,
   "javascript.format.enable": false,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  "loccy.sourceLocale": "zh_cn",
+  "loccy.usages.quoteType": "double",
+  "loccy.resources.file.sortKeys": "yes",
+  "loccy.annotations.previewLocale": "zh_cn",
+  "loccy.resources.file.structure": "nested",
+  "loccy.usages.tFunction.preset": "vue-i18n"
 }

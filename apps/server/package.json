@@ -12,6 +12,7 @@
     "typescript": "catalog:"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.7.2",
     "@jigu/shared": "workspace:*",
     "@ts-rest/core": "catalog:",
     "@types/qs": "catalog:",

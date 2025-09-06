@@ -1,31 +1,57 @@
-import { BaseDAL } from "../base";
-import type { ScriptDocument } from "../types";
+import type {
+  CreateScriptInput,
+  ScriptSearchByContentInput,
+  ScriptSearchByNameInput,
+  UpdateScriptInput,
+} from "@jigu/shared/schemas";
 import type { Filter } from "mongodb";
+import type { ScriptDocument } from "@/dal/types";
+import {
+  CreateScriptSchema,
+  ScriptSearchByContentSchema,
+  ScriptSearchByNameSchema,
+  UpdateScriptSchema,
+} from "@jigu/shared/schemas";
+import { BaseDAL } from "@/dal/base";
 
 export class ScriptsDAL extends BaseDAL<ScriptDocument> {
-  protected collectionName = "SCRIPTS" as const;
+  protected collectionName = "scripts" as const;
 
-  // 按语言查找脚本
-  async findByLanguage(language: string): Promise<ScriptDocument[]> {
-    return this.findAll({ language });
+  validateCreateInput(input: unknown): CreateScriptInput {
+    return CreateScriptSchema.parse(input);
   }
 
-  // 按标签查找脚本
-  async findByTags(tags: string[]): Promise<ScriptDocument[]> {
-    return this.findAll({ tags: { $in: tags } } as Filter<ScriptDocument>);
+  validateUpdateInput(input: unknown): UpdateScriptInput {
+    return UpdateScriptSchema.parse(input);
   }
 
-  // 按名称搜索脚本
-  async searchByName(query: string): Promise<ScriptDocument[]> {
+  async createScript(input: unknown) {
+    const validatedInput = this.validateCreateInput(input);
+    return this.create(validatedInput);
+  }
+
+  async updateScript(id: string, input: unknown) {
+    const validatedInput = this.validateUpdateInput(input);
+    return this.updateById(id, validatedInput);
+  }
+
+  async searchByName(input: ScriptSearchByNameInput | string): Promise<ScriptDocument[]> {
+    const params = typeof input === "string"
+      ? { search: input }
+      : ScriptSearchByNameSchema.parse(input);
+
     return this.findAll({
-      name: { $regex: query, $options: "i" }
+      name: { $regex: params.search, $options: "i" },
     } as Filter<ScriptDocument>);
   }
 
-  // 按内容搜索脚本
-  async searchByContent(query: string): Promise<ScriptDocument[]> {
+  async searchByContent(input: ScriptSearchByContentInput | string): Promise<ScriptDocument[]> {
+    const params = typeof input === "string"
+      ? { search: input }
+      : ScriptSearchByContentSchema.parse(input);
+
     return this.findAll({
-      content: { $regex: query, $options: "i" }
+      content: { $regex: params.search, $options: "i" },
     } as Filter<ScriptDocument>);
   }
 }

@@ -1,0 +1,7 @@
+---
+globs: apps/frontend/**/*.vue,apps/frontend/**/*.ts,apps/frontend/**/*.css
+alwaysApply: false
+---
+
+- Use [Tailwind CSS v4](https://tailwindcss.com/)
+- Use [Nuxt UI](https://ui.nuxt.com/getting-started/theme)

@@ -6,7 +6,8 @@
     ".": "./index.ts",
     "./lib": "./lib/index.ts",
     "./@types": "./@types/index.ts",
-    "./configs": "./configs/index.ts"
+    "./configs": "./configs/index.ts",
+    "./schemas": "./schemas/index.ts"
   },
   "scripts": {
     "lint": "eslint . --fix"

@@ -1,42 +1,18 @@
-import type { Ref } from "vue";
-import { defineStore } from "pinia";
-import { ref } from "vue";
+export const useAuthStore = defineStore("auth", {
+  persist: true,
 
-interface State {
-  token: Ref<string | undefined>;
-}
+  state: () => ({
+    token: undefined as string | undefined,
+    userInfo: undefined as unknown | undefined,
+  }),
 
-interface Action {
-  clearToken: () => void;
-  updateToken: (t: string) => void;
-}
+  actions: {
+    updateToken(token: string | undefined) {
+      this.token = token;
+    },
 
-export const useAuthStore = defineStore(
-  "auth",
-  () => {
-    const token = ref<string>();
-    const updateToken = (t: string) => {
-      token.value = t;
-    };
-    const clearToken = () => {
-      token.value = undefined;
-    };
-
-    const states: State = {
-      token,
-    };
-
-    const actions: Action = {
-      clearToken,
-      updateToken,
-    };
-
-    return {
-      ...states,
-      ...actions,
-    };
+    clearToken() {
+      this.token = undefined;
+    },
   },
-  {
-
-  },
-);
+});

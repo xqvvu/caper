@@ -3,9 +3,9 @@ import consola from "consola";
 import { Hono } from "hono";
 import { R } from "@/shared/utils";
 
-const completions = new Hono().basePath("/completions");
+const generates = new Hono();
 
-completions.post("/", async (c) => {
+generates.post("/", async (c) => {
   if (!Bun.env.FASTGPT_API_BASE_URL || !Bun.env.FASTGPT_APP_SECRET) {
     consola.error("Bad environment:", {
       FASTGPT_API_BASE_URL: Bun.env.FASTGPT_API_BASE_URL,
@@ -44,4 +44,4 @@ completions.post("/", async (c) => {
   });
 });
 
-export default completions;
+export default generates;

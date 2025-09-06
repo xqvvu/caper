@@ -1,13 +1,28 @@
 import antfu from "@antfu/eslint-config";
-import { eslint } from "@jigu/shared/configs";
 
 export default antfu(
   {
-    vue: true,
+    stylistic: {
+      jsx: false,
+      semi: true,
+      quotes: "double",
+    },
+    ignores: [
+      "**/jsconfig.*",
+      "**/tsconfig.*",
+    ],
     rules: {
-      "vue/multiline-html-element-content-newline": "off",
-      "vue/max-attributes-per-line": ["error", { singleline: 3, multiline: 1 }],
+      "antfu/curly": "off",
+      "antfu/if-newline": "off",
     },
   },
-  eslint,
+  {
+    files: ["**/*.vue"],
+    rules: {
+      "vue/attributes-order": ["warn", {
+        alphabetical: true,
+      }],
+      "vue/max-attributes-per-line": "warn",
+    },
+  },
 );

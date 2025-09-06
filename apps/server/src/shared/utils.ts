@@ -1,5 +1,6 @@
-import type { Result } from "@jigu/shared/@types";
+import type { Result, TServiceCode } from "@jigu/shared/@types";
 import type { Context } from "hono";
+import { HttpCode, ServiceCode } from "@jigu/shared/@types";
 
 export class R {
   private constructor() {
@@ -7,17 +8,21 @@ export class R {
   }
 
   static ok<T = unknown>(ctx: Context, data?: T) {
-    ctx.status(200);
+    ctx.status(HttpCode.OK);
 
     return ctx.json({
-      code: 2001,
+      code: ServiceCode.OK,
       data: data ?? null,
       message: "Ok",
     } satisfies Result<T>);
   }
 
-  static fail(ctx: Context, code: number = 4001, message: string = "Something went wrong") {
-    ctx.status(400);
+  static fail(
+    ctx: Context,
+    code: TServiceCode = ServiceCode.BAD_REQUEST,
+    message: string = "Something went wrong",
+  ) {
+    ctx.status(HttpCode.BAD_REQUEST);
 
     return ctx.json({
       code,

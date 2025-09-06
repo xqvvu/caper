@@ -1,23 +1,34 @@
 <script setup lang="ts">
-import { useCompletions } from "@/composables/use-completions";
+import type { ScriptDocument } from "@jigu/shared/schemas";
 
-const { answer, completion } = useCompletions();
+const { t } = useI18n();
+
+const authStore = useAuthStore();
+const { token } = storeToRefs(authStore);
+
+const { data } = useFetch("/v1/scripts").get().json<ScriptDocument[]>();
+
+watchEffect(() => {
+  if (data.value) {
+    consola.info(data.value);
+  }
+  if (!token.value) authStore.clearToken();
+});
 </script>
 
 <template>
-  <div>
+  <div class="flex gap-4 items-center">
     <UButton
-      class="text-emerald-600 cursor-pointer"
-      color="neutral"
-      @click="completion()"
+      class="font-semibold cursor-pointer"
+      icon="i-material-symbols:10k"
+      @click="authStore.clearToken()"
     >
-      HOME
+      {{ t("common.welcome") }}
     </UButton>
 
-    <ExInput />
-
-    <div class="text-white font-semibold text-lg">
-      {{ answer }}
-    </div>
+    <UInput
+      v-model="token"
+      placeholder="There is your token"
+    />
   </div>
 </template>

@@ -1,7 +1,3 @@
-import consola from "consola";
-import { ref, watch } from "vue";
-import useFetch from "@/composables/use-fetch";
-
 export function useCompletions() {
   const answer = ref("");
 

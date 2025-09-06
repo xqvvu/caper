@@ -1,8 +1,6 @@
 import { createMemoryHistory, createRouter } from "vue-router";
 
-type TRoutes = Parameters<typeof createRouter>[0]["routes"];
-
-const routes: TRoutes = [
+const routes: Parameters<typeof createRouter>[0]["routes"] = [
   {
     path: "/",
     name: "Home",

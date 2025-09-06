@@ -1,2 +1,9 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+@import "@/assets/utilities.css";
+
+/* Apple 设计系统主题配置 */
+@theme {
+  --font-sans: 'Noto Sans SC', sans-serif;
+}

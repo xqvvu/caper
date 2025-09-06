@@ -1,39 +1,25 @@
-import { Hono } from "hono";
+import { zValidator } from "@hono/zod-validator";
+import { ServiceCode } from "@jigu/shared";
+import { CreateScriptSchema } from "@jigu/shared/schemas";
 import consola from "consola";
-import { scriptsDAL } from "@/dal/collections/scripts";
+import { Hono } from "hono";
+import { services } from "@/services";
 import { R } from "@/shared/utils";
 
-const scripts = new Hono().basePath("/scripts");
+const scripts = new Hono();
 
 // 获取所有脚本
 scripts.get("/", async (c) => {
   try {
-    const { language, tags, search } = c.req.query();
+    const { search } = c.req.query();
 
-    let allScripts;
-
-    if (language) {
-      allScripts = await scriptsDAL.findByLanguage(language);
-    } else if (tags) {
-      const tagArray = tags.split(",").map(tag => tag.trim());
-      allScripts = await scriptsDAL.findByTags(tagArray);
-    } else if (search) {
-      const nameResults = await scriptsDAL.searchByName(search);
-      const contentResults = await scriptsDAL.searchByContent(search);
-      // 合并结果并去重
-      const uniqueScripts = new Map();
-      [...nameResults, ...contentResults].forEach(script => {
-        uniqueScripts.set(script._id?.toString(), script);
-      });
-      allScripts = Array.from(uniqueScripts.values());
-    } else {
-      allScripts = await scriptsDAL.findAll();
-    }
+    const allScripts = await services.scripts.getAllScripts({ search });
 
     return R.ok(c, allScripts);
-  } catch (error) {
+  }
+  catch (error) {
     consola.error("Error fetching scripts:", error);
-    return R.fail(c, 500, "Failed to fetch scripts");
+    return R.fail(c, ServiceCode.INTERNAL_SERVER_ERROR, "Failed to fetch scripts");
   }
 });
 
@@ -41,41 +27,36 @@ scripts.get("/", async (c) => {
 scripts.get("/:id", async (c) => {
   try {
     const id = c.req.param("id");
-    const script = await scriptsDAL.findById(id);
+    const script = await services.scripts.getScriptById(id);
 
     if (!script) {
-      return R.fail(c, 404, "Script not found");
+      return R.fail(c, ServiceCode.NOT_FOUND, "Script not found");
     }
 
     return R.ok(c, script);
-  } catch (error) {
+  }
+  catch (error) {
     consola.error("Error fetching script:", error);
-    return R.fail(c, 500, "Failed to fetch script");
+    return R.fail(c, ServiceCode.INTERNAL_SERVER_ERROR, "Failed to fetch script");
   }
 });
 
 // 创建新脚本
-scripts.post("/", async (c) => {
+scripts.post("/", zValidator("json", CreateScriptSchema), async (c) => {
   try {
-    const body = await c.req.json();
-    const { name, content, language, tags, description } = body;
+    const body = c.req.valid("json");
 
-    if (!name || !content || !language) {
-      return R.fail(c, 400, "Missing required fields: name, content, language");
-    }
-
-    const scriptId = await scriptsDAL.create({
-      name,
-      content,
-      language,
-      tags,
-      description,
-    });
+    const scriptId = await services.scripts.createScript(body);
 
     return R.ok(c, { id: scriptId, message: "Script created successfully" });
-  } catch (error) {
+  }
+  catch (error) {
+    // Zod validation errors will have detailed messages
+    if (error instanceof Error && error.name === "ZodError") {
+      return R.fail(c, ServiceCode.BAD_REQUEST, `Validation error: ${error.message}`);
+    }
     consola.error("Error creating script:", error);
-    return R.fail(c, 500, "Failed to create script");
+    return R.fail(c, ServiceCode.INTERNAL_SERVER_ERROR, "Failed to create script");
   }
 });
 
@@ -85,16 +66,21 @@ scripts.put("/:id", async (c) => {
     const id = c.req.param("id");
     const body = await c.req.json();
 
-    const success = await scriptsDAL.updateById(id, body);
+    const success = await services.scripts.updateScript(id, body);
 
     if (!success) {
-      return R.fail(c, 404, "Script not found or update failed");
+      return R.fail(c, ServiceCode.NOT_FOUND, "Script not found or update failed");
     }
 
     return R.ok(c, { message: "Script updated successfully" });
-  } catch (error) {
+  }
+  catch (error) {
+    // Zod validation errors will have detailed messages
+    if (error instanceof Error && error.name === "ZodError") {
+      return R.fail(c, ServiceCode.BAD_REQUEST, `Validation error: ${error.message}`);
+    }
     consola.error("Error updating script:", error);
-    return R.fail(c, 500, "Failed to update script");
+    return R.fail(c, ServiceCode.INTERNAL_SERVER_ERROR, "Failed to update script");
   }
 });
 
@@ -102,36 +88,30 @@ scripts.put("/:id", async (c) => {
 scripts.delete("/:id", async (c) => {
   try {
     const id = c.req.param("id");
-    const success = await scriptsDAL.deleteById(id);
+    const success = await services.scripts.deleteScript(id);
 
     if (!success) {
-      return R.fail(c, 404, "Script not found");
+      return R.fail(c, ServiceCode.NOT_FOUND, "Script not found");
     }
 
     return R.ok(c, { message: "Script deleted successfully" });
-  } catch (error) {
+  }
+  catch (error) {
     consola.error("Error deleting script:", error);
-    return R.fail(c, 500, "Failed to delete script");
+    return R.fail(c, ServiceCode.INTERNAL_SERVER_ERROR, "Failed to delete script");
   }
 });
 
 // 获取脚本统计信息
 scripts.get("/stats/overview", async (c) => {
   try {
-    const totalScripts = await scriptsDAL.count();
-    const allScripts = await scriptsDAL.findAll();
-    const languageStats = allScripts.reduce((acc, script) => {
-      acc[script.language] = (acc[script.language] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    const stats = await services.scripts.getScriptStats();
 
-    return R.ok(c, {
-      totalScripts,
-      languageStats,
-    });
-  } catch (error) {
+    return R.ok(c, stats);
+  }
+  catch (error) {
     consola.error("Error fetching stats:", error);
-    return R.fail(c, 500, "Failed to fetch stats");
+    return R.fail(c, ServiceCode.INTERNAL_SERVER_ERROR, "Failed to fetch stats");
   }
 });
 
